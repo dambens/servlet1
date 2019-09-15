@@ -11,10 +11,24 @@ import java.util.Random;
 @WebServlet(name = "RandomJson", urlPatterns = {"/getRandomNumber", "/randomJson"})
 public class RandomJson extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-        PrintWriter out = response.getWriter();
+    private static final String PARAMETER = "giveRandomNumber";
+    private static final String EXPECTED_VALUE = "true";
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         response.setContentType("application/json");
+        PrintWriter writer = response.getWriter();
+        String giveRandomNumber = request.getParameter(PARAMETER);
+
+        if (EXPECTED_VALUE.equals(giveRandomNumber)) {
+
+        } else {
+            writer.println("<h2>DONE!</h2>");
+        }
+
         Random random = new Random();
-        out.println(random.nextInt());
+        writer.println(random.nextInt());
+
     }
+
 }
